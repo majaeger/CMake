@@ -2750,6 +2750,7 @@ int cmListFileLexer_SetFileName(cmListFileLexer* lexer, const char* name,
   cmListFileLexerDestroy(lexer);
   if (name) {
 #ifdef _WIN32
+// Use same max length as Linux
 #define MAX_PATH_LONG 4096
 
     static DWORD longPathsEnabled = UINT_MAX;
@@ -2775,8 +2776,6 @@ int cmListFileLexer_SetFileName(cmListFileLexer* lexer, const char* name,
         const char prefix[] = "\\\\?\\";
         const size_t prefixLength = strlen(prefix);
         const size_t unnormalizedLength = nameLength + prefixLength;
-
-        // Use same max length as Linux
         char unnormalizedName[MAX_PATH_LONG];
 
         strcpy_s(unnormalizedName, MAX_PATH_LONG, prefix);
